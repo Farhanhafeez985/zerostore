@@ -1,0 +1,135 @@
+{% load static %}
+{% load cart %}
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Fashi Template">
+    <meta name="keywords" content="Fashi, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% block title %}
+        <title></title>
+    {% endblock title %}
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+            integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+            crossorigin="anonymous"></script>
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css ' %}">
+    <link rel="stylesheet" href="{% static 'css/themify-icons.css ' %}">
+    <link rel="stylesheet" href="{% static 'css/elegant-icons.css ' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css ' %}">
+    <link rel="stylesheet" href="{% static 'css/nice-select.css ' %}">
+    <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css ' %}">
+    <link rel="stylesheet" href="{% static 'css/slicknav.min.css ' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css ' %}">
+
+
+</head>
+
+
+<body>
+
+<div id="preloder">
+    <div class="loader"></div>
+</div>
+
+
+
+{% block body %}
+
+    <div class="row">
+        <!-- Register Section Begin -->
+        <div class="register-login-section spad">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 offset-lg-3">
+                        <div class="register-form">
+                            {% include 'message.html' %}
+                            <h2>Welcom admin</h2>
+                            <form id="form_id" enctype="multipart/form-data" action="{% url 'admin' %}" method="POST">
+                                {% csrf_token %}
+                                <div class="group-input">
+                                    <label for="email">User Name</label>
+                                    <input type="text" name="username" id="username_id" required>
+                                </div>
+                                <div class="group-input">
+                                    <label for="password">Password</label>
+                                    <input type="password" name="password" id="id_pass" required>
+                                    <input
+                                            style="width:auto;height: 50px;float:right ;position: relative"
+                                            type="checkbox" onclick="myFunction2()"/>
+                                    <strong class="text-danger">{{ form.password.errors }}</strong>
+                                </div>
+                                <button type="submit" name="form2" class="site-btn register-btn">Login</button>
+                            </form>
+                            <div class="switch-login">
+                                <a href="/signup" class="or-login">Or Signup</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Register Form Section End -->
+    </div>
+
+{% endblock body %}
+
+
+
+
+<!-- Js Plugins -->
+<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/jquery-ui.min.js' %}"></script>
+<script src="{% static 'js/jquery.countdown.min.js' %}"></script>
+<script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
+<script src="{% static 'js/jquery.zoom.min.js' %}"></script>
+<script src="{% static 'js/jquery.dd.min.js' %}"></script>
+<script src="{% static 'js/jquery.slicknav.js' %}"></script>
+<script src="{% static 'js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+<script src="{% static 'js/message.js' %}"></script>
+
+</body>
+{% block javascript %}
+    <script>
+        window.setTimeout(function () {
+            $(".alert").fadeTo(500, 0).slideUp(500, function () {
+                $(this).remove();
+            });
+        }, 2000);
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
+                localStorage.setItem('activeTab', $(e.target).attr('href'));
+            });
+            var activeTab = localStorage.getItem('activeTab');
+            if (activeTab) {
+                $('#myTab a[href="' + activeTab + '"]').tab('show');
+            }
+        });
+    </script>
+    <script>
+        function myFunction2() {
+            var x = document.getElementById("id_pass");
+            if (x.type === "password") {
+                x.type = "text";
+            } else {
+                x.type = "password";
+            }
+        }
+    </script>
+{% endblock javascript %}
+</html>

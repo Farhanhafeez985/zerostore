@@ -1,0 +1,157 @@
+{% extends 'vendorpanel.html' %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% block title %}
+        <title>Update Products</title>
+    {% endblock title %}
+    {% load static %}
+
+</head>
+
+
+
+{% block pagewisecontent %}
+
+    <div style="margin-top: 4%; margin-bottom: 4%" class="row">
+        <div class="col-xl-8 m-auto order-xl-1">
+            <div style="background-color: transparent" class="card shadow ">
+                <div style="background-color: #149b89" class="card-header  border-0">
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <h3 style="color: white" class="mb-0">Update Products</h3>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="card-body">
+                    {% include 'message.html' %}
+                    <form id="indexForm" method="post" action="" data-cat-url="{% url 'ajax_load_cat' %}"
+                          enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <h6 class="heading-small text-muted mb-4">Products information</h6>
+                        <div class="pl-lg-4">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group focused">
+                                        <label class="form-control-label" for="input-name">Products Name</label>
+                                        <input type="text" id="input-name" class="form-control form-control-alternative"
+                                               name="proname" placeholder="Enter Product Name"
+                                               value="{{ prod.product_name }}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-name">Category</label>
+                                        <select required type="" id="catid"
+                                                class="form-control form-control-alternative"
+                                                name="catid">
+                                            <option selected  value="{{ prod.category.id }}">{{ prod.category.Cat_name }}</option>
+                                            {% for cat in categories %}
+                                                <option style="  color: black"
+                                                        value="{{ cat.id }}">{{ cat.Cat_name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group focused">
+                                        <label class="form-control-label" for="input-name">Sub Category</label>
+                                        <select required type="text" id="subcatid"
+                                                class="form-control form-control-alternative" name="subcatid">
+                                             <option selected  value="{{ prod.subcategory.id }}">{{ prod.subcategory.subcat_name }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group focused">
+                                        <label class="form-control-label" for="input-name">Quantity</label>
+                                        <input type="number" id="input-name"
+                                               class="form-control form-control-alternative" name="quantity"
+                                               placeholder="Store Name" value="{{ prod.product_quantity }}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-name">Product Price</label>
+                                        <input name="proprice" type="text" id="input-name"
+                                               class="form-control form-control-alternative" placeholder="Enter Price"
+                                               value="{{ prod.product_price }}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-name">Discount</label>
+                                        <input required name="discount" type="text" id="input-name"
+                                               class="form-control form-control-alternative" placeholder="Enter Price" value="{{ prod.discount_price }}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="col-lg-6">
+                                    {% if prod.product_image %}
+                                        <img style="width: 50px;height: 50px" src="{{ prod.product_image.url }}">
+                                    {% endif %}
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="exampleFormControlFile1">Image</label>
+                                        <input name="proimage" type="file" class="form-control-file "
+                                               id="exampleFormControlFile1">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-name">Product Description</label>
+                                        <textarea type="text" id="input-name"
+                                                  class="form-control form-control-alternative"
+                                                  name="prodescription"
+
+                                        >{{ prod.product_description }}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group focused">
+                                        <BUTTON style="background-color: #149b89; color: white"
+                                                class="form-control form-control-alternative" onclick="">Update
+                                        </BUTTON>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock pagewisecontent %}
+{% block javascript %}
+
+    <script>
+        $("#catid").change(function () {
+            var url = $("#indexForm").attr("data-cat-url");  // get the url of the `load_courses` view
+            var catId = $(this).val();  // get the selected programming ID from the HTML input
+            $.ajax({                       // initialize an AJAX request
+                url: url,                    // set the url of the request (= localhost:8000/load-courses/)
+                data: {
+                    'catid': catId       // add the programming id to the GET parameters
+                },
+                success: function (data) {   // `data` is the return of the `load_courses` view function
+                    $("#subcatid").html(data);  // replace the contents of the course input with the data that came from the server
+                }
+            });
+        });
+    </script>
+{% endblock javascript %}
+
+</html>

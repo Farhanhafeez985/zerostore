@@ -1,0 +1,68 @@
+{% extends 'adminpanel.html' %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% block title %}
+        <title>Orders</title>
+    {% endblock title %}
+    {% load static %}
+
+</head>
+
+
+
+{% block pagewisecontent %}
+
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">Orders</h1>
+        <p class="mb-4">DataTables is a for all Placed Orders.</a>.</p>
+
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-dark">List of Orders</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered font-weight-bold text-dark" id="dataTable" width="100%"
+                           cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>iD</th>
+                            <th>Customer Name</th>
+                            <th>Order Price</th>
+                            <th>City</th>
+                            <th>Address</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if orders %}
+                            {% for o in orders %}
+                                <tr>
+                                    <td>{{ o.Order_id }}</td>
+                                    <td>{{ o.customer.fullname }}</td>
+                                    <td>{{ o.total_price }}</td>
+                                    <td>{{ o.city }}</td>
+                                    <td>{{ o.address }}</td>
+
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+
+
+{% endblock pagewisecontent %}
+
+
+</html>

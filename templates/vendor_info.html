@@ -1,0 +1,74 @@
+{% extends 'adminpanel.html' %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% block title %}
+        <title>Vendors Info</title>
+    {% endblock title %}
+    {% load static %}
+
+</head>
+
+
+
+{% block pagewisecontent %}
+
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">Vendors</h1>
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-dark">List of User</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered font-weight-bold text-dark" id="dataTable" width="100%"
+                           cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>iD</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Type</th>
+                            <th>Image</th>
+                            <th>Delete</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if users %}
+
+                            {% for us in users %}
+                                <tr>
+                                    <td>{{ us.id }}</td>
+                                    <td>{{ us.fullname }}</td>
+                                    <td>{{ us.email }}</td>
+                                    <td>{{ us.user_type }}</td>
+                                    <td><img style="height: 70px;width: 70px" src='{{ us.image.url }}'></td>
+                                    <td>
+                                        <a href="{% url 'deleteusers' us.id %}"
+                                           style="background-color:transparent; border-color: transparent; margin-right: 20px"
+                                           value="delete"><i class=" fa fa-trash"></i></a>
+
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+
+
+{% endblock pagewisecontent %}
+
+
+</html>

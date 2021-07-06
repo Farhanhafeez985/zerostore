@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    {% block title %}
+    <title>Login</title>
+    {% endblock title %}
+</head>
+
+<body>
+{% block body %}
+
+
+    <!-- Register Section Begin -->
+    <div class="register-login-section spad">
+        <div class="container">
+            {% include 'message.html' %}
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3">
+                    <div class="login-form">
+                        <h2>Welcome Admin</h2>
+                        <form action="{% url 'admin' %}" method="POST" >
+                            {% csrf_token %}
+                            <div class="group-input">
+                                <label for="username">Username *</label>
+                                <input  type="text" id="username" name="username" required >
+                            </div>
+                            <div class="group-input">
+                                <label for="pass">Password *</label>
+                                <input type="password" id="pass" name="password" required >
+                            </div>
+                            <div class="group-input gi-check">
+                                <div class="gi-more">
+                                    <label for="save-pass">
+                                        Save Password
+                                        <input type="checkbox" id="save-pass">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <button type="submit" class="site-btn login-btn">Sign In as Admin</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Register Form Section End -->
+{%endblock body %}
+
+
+
+</body>
+
+</html>

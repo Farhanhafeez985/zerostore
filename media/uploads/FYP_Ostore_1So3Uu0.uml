@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DjangoModelDependency</ID>
+  <OriginalElement>#FYP_Ostore</OriginalElement>
+  <nodes>
+    <node x="0.0" y="1009.0">Customer.models.Comments</node>
+    <node x="105.88151041666674" y="388.0">Signup.models.Customer_model</node>
+    <node x="245.0" y="1042.0">Customer.models.Wishlist</node>
+    <node x="585.5598958333334" y="443.0">Admin.models.Sub_Categories</node>
+    <node x="607.125" y="998.0">Order.models.Order_details</node>
+    <node x="589.5416666666667" y="0.0">Admin.models.admin_tbl</node>
+    <node x="345.88671875" y="682.0">Order.models.Order</node>
+    <node x="587.0416666666667" y="194.0">Admin.models.Categories</node>
+    <node x="1025.3515625" y="421.0">Vendors.models.Store</node>
+    <node x="973.0000000000001" y="150.0">Signup.models.User_model</node>
+    <node x="804.13671875" y="660.0">Vendors.models.Products</node>
+    <node x="560.13671875" y="671.0">Seller.models.Used_Products</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="Order.models.Order_details" target="Vendors.models.Store" relationship="ForeignKey">
+      <point x="72.33333333333337" y="-83.0" />
+      <point x="787.9583333333334" y="977.0" />
+      <point x="1115.3515625" y="977.0" />
+      <point x="0.0" y="72.0" />
+    </edge>
+    <edge source="Vendors.models.Products" target="Admin.models.Sub_Categories" relationship="ForeignKey">
+      <point x="-67.33333333333326" y="-138.0" />
+      <point x="837.8033854166667" y="639.0" />
+      <point x="704.0598958333334" y="639.0" />
+      <point x="0.0" y="50.0" />
+    </edge>
+    <edge source="Order.models.Order_details" target="Order.models.Order" relationship="ForeignKey">
+      <point x="0.0" y="-83.0" />
+      <point x="715.625" y="967.0" />
+      <point x="431.38671875" y="967.0" />
+      <point x="0.0" y="116.0" />
+    </edge>
+    <edge source="Admin.models.Categories" target="Admin.models.admin_tbl" relationship="ForeignKey">
+      <point x="0.0" y="-50.0" />
+      <point x="0.0" y="50.0" />
+    </edge>
+    <edge source="Customer.models.Comments" target="Vendors.models.Products" relationship="ForeignKey">
+      <point x="56.25" y="-72.0" />
+      <point x="168.75" y="977.0" />
+      <point x="535.6848958333334" y="977.0" />
+      <point x="535.6848958333334" y="957.0" />
+      <point x="905.13671875" y="957.0" />
+      <point x="0.0" y="138.0" />
+    </edge>
+    <edge source="Vendors.models.Products" target="Vendors.models.Store" relationship="ForeignKey">
+      <point x="67.33333333333337" y="-138.0" />
+      <point x="972.4700520833334" y="639.0" />
+      <point x="1115.3515625" y="639.0" />
+      <point x="0.0" y="72.0" />
+    </edge>
+    <edge source="Vendors.models.Products" target="Admin.models.Categories" relationship="ForeignKey">
+      <point x="0.0" y="-138.0" />
+      <point x="905.13671875" y="619.0" />
+      <point x="935.9700520833334" y="619.0" />
+      <point x="935.9700520833334" y="363.0" />
+      <point x="690.0416666666667" y="363.0" />
+      <point x="0.0" y="50.0" />
+    </edge>
+    <edge source="Customer.models.Comments" target="Signup.models.Customer_model" relationship="ForeignKey">
+      <point x="-56.25" y="-72.0" />
+      <point x="56.25" y="639.0" />
+      <point x="230.38151041666674" y="639.0" />
+      <point x="0.0" y="105.0" />
+    </edge>
+    <edge source="Admin.models.Sub_Categories" target="Admin.models.Categories" relationship="ForeignKey">
+      <point x="0.0" y="-50.0" />
+      <point x="704.0598958333334" y="363.0" />
+      <point x="690.0416666666667" y="363.0" />
+      <point x="0.0" y="50.0" />
+    </edge>
+    <edge source="Vendors.models.Store" target="Signup.models.User_model" relationship="OneToOne">
+      <point x="0.0" y="-72.0" />
+      <point x="1115.3515625" y="363.0" />
+      <point x="1080.5" y="363.0" />
+      <point x="0.0" y="94.0" />
+    </edge>
+    <edge source="Seller.models.Used_Products" target="Signup.models.User_model" relationship="ForeignKey">
+      <point x="74.66666666666663" y="-127.0" />
+      <point x="746.8033854166666" y="629.0" />
+      <point x="1007.5598958333334" y="629.0" />
+      <point x="1007.5598958333334" y="363.0" />
+      <point x="1080.5" y="363.0" />
+      <point x="0.0" y="94.0" />
+    </edge>
+    <edge source="Customer.models.Wishlist" target="Vendors.models.Products" relationship="ManyToMany">
+      <point x="51.25" y="-39.0" />
+      <point x="398.75" y="977.0" />
+      <point x="535.6848958333334" y="977.0" />
+      <point x="535.6848958333334" y="957.0" />
+      <point x="905.13671875" y="957.0" />
+      <point x="0.0" y="138.0" />
+    </edge>
+    <edge source="Customer.models.Wishlist" target="Signup.models.Customer_model" relationship="ForeignKey">
+      <point x="-51.25" y="-39.0" />
+      <point x="296.25" y="967.0" />
+      <point x="249.26822916666674" y="967.0" />
+      <point x="249.26822916666674" y="639.0" />
+      <point x="230.38151041666674" y="639.0" />
+      <point x="0.0" y="105.0" />
+    </edge>
+    <edge source="Order.models.Order_details" target="Vendors.models.Products" relationship="ForeignKey">
+      <point x="-72.33333333333326" y="-83.0" />
+      <point x="643.2916666666667" y="977.0" />
+      <point x="535.6848958333334" y="977.0" />
+      <point x="535.6848958333334" y="957.0" />
+      <point x="905.13671875" y="957.0" />
+      <point x="0.0" y="138.0" />
+    </edge>
+    <edge source="Seller.models.Used_Products" target="Admin.models.Categories" relationship="ForeignKey">
+      <point x="-74.66666666666674" y="-127.0" />
+      <point x="597.4700520833333" y="639.0" />
+      <point x="479.39322916666674" y="639.0" />
+      <point x="479.39322916666674" y="363.0" />
+      <point x="690.0416666666667" y="363.0" />
+      <point x="0.0" y="50.0" />
+    </edge>
+    <edge source="Seller.models.Used_Products" target="Admin.models.Sub_Categories" relationship="ForeignKey">
+      <point x="0.0" y="-127.0" />
+      <point x="672.13671875" y="639.0" />
+      <point x="704.0598958333334" y="639.0" />
+      <point x="0.0" y="50.0" />
+    </edge>
+    <edge source="Order.models.Order" target="Signup.models.Customer_model" relationship="ForeignKey">
+      <point x="0.0" y="-116.0" />
+      <point x="431.38671875" y="639.0" />
+      <point x="230.38151041666674" y="639.0" />
+      <point x="0.0" y="105.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="1.059313725490196" showDependencies="false" x="772.3401203146691" y="171.6501619620546" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+  </Categories>
+</Diagram>
+

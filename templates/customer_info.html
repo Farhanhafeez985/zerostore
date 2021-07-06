@@ -1,0 +1,69 @@
+{% extends 'adminbase_temp.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     {% block title %}
+    <title>Customer info</title>
+    {% endblock title %}
+</head>
+<body>
+ {% block pagewisecontent %}
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <hs1 class="h3 mb-2 text-gray-800">Customers</hs1>
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-dark">List of Customers</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered font-weight-bold text-dark" id="dataTable" width="100%"
+                           cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>iD</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Type</th>
+                            <th>Phone</th>
+                            <th>Image</th>
+                            <th>Delete</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if customer %}
+                            {% for cu in customer %}
+                                <tr>
+                                    <td>{{ cu.id }}</td>
+                                    <td>{{ cu.fullname }}</td>
+                                    <td>{{ cu.email }}</td>
+
+                                    <td>{{ cu.user_type }}</td>
+                                    <td>{{ cu.phone }}</td>
+                                    <td><img style="height: 70px;width: 70px" src='{{ cu.image.url }}'></td>
+                                    <td>
+                                        <a href="{% url 'deletecustomer' cu.id %}"
+                                           style="background-color:transparent; border-color: transparent; margin-right: 20px"
+                                           value="delete"><i class=" fa fa-trash"></i></a>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+
+ {% endblock pagewisecontent %}
+</body>
+{% block javascript %}
+
+{% endblock javascript %}
+</html>

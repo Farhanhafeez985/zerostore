@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+{% load cart %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}
+        <title>Search Result</title>
+    {% endblock title %}
+</head>
+<body>
+{% block body %}
+    <!-- Product Shop Section Begin -->
+    <section class="product-shop spad">
+        <div class="container">
+            <div class="row">
+                {% include 'quicksidebar.html' %}
+                <div class="col-lg-9 order-1 order-lg-2">
+                    <div class="product-show-option">
+                        <div class="row">
+                            <div class="col-lg-5 col-md-5 text-left">
+                                {% if request.GET.keyword  %}
+                                    <p class="active">Search for : {{ request.GET.keyword }}</p>
+                                {% endif %}
+                            </div>
+                            <div class="col-lg-7 col-md-7">
+                                <div class="select-option">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-5 col-md-5 text-left">
+
+                                <p>New Products</p>
+
+                            </div>
+                            <div class="col-lg-7 col-md-7">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-list">
+                        <div class="row">
+                            {% for pr in products %}
+                                <div class="col-lg-4 col-sm-6">
+                                    <div class="product-item">
+                                        <div class="pi-pic">
+                                            <img style="height: 300px" src="{{ pr.product_image.url }}"
+                                                 alt="">
+                                            {% if pr.product_quantity >= 1 %}
+                                            <div class="sale pp-sale">Available</div>
+                                                {% else %}
+                                                <div class="sale pp-sale">Out of Stock</div>
+                                            {% endif %}
+                                            {% if request.session.type == 'customer' %}
+                                            <a style="color:#149b89" href="{% url 'wish_list' pr.id %}"
+                                               class="icon_heart_alt "></a>
+                                        {% endif %}
+                                            <ul>
+
+                                                <li class="quick-view"><a href="{% url 'quick_view' pr.id %}">+ Quick
+                                                    View</a></li>
+
+                                            </ul>
+                                        </div>
+                                        <div class="pi-text">
+                                            <div class="catagory-name">{{ pr.category.Cat_name }}-{{ pr.subcategory.subcat_name }}</div>
+                                            <a href="#">
+                                                <h5>{{ pr.product_name }}</h5>
+                                            </a>
+                                            <div class="product-price">
+                                                {{ pr.product_price|currency }}
+                                                <span>$35.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-lg-5 col-md-5 text-left">
+                            <p>Used Products</p>
+                        </div>
+                        <div class="col-lg-7 col-md-7">
+                        </div>
+                    </div>
+                    <div class="product-list">
+                        <div class="row">
+                            {% for pr in oldproducts %}
+                                <div class="col-lg-4 col-sm-6">
+                                    <div class="product-item">
+                                        <div class="pi-pic">
+                                            <img style="height:300px;width: auto" src="{{ pr.ad_image.url }}" alt="">
+                                            <div class="sale pp-sale">{{ pr.ad_location }}</div>
+                                            <ul>
+                                                <li class="quick-view"><a href="{% url 'used_quickview' pr.id %}">+ Quick
+                                                    View</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="pi-text">
+                                            <div class="catagory-name">{{ pr.category.Cat_name }}-{{ pr.subcategory.subcat_name }}</div>
+                                            <a href="#">
+                                                <h5>{{ pr.ad_title }}</h5>
+                                            </a>
+                                            <div class="product-price">
+                                                {{ pr.ad_price|currency }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Product Shop Section End -->
+{% endblock body %}
+
+</body>
+</html>

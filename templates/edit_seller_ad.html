@@ -1,0 +1,183 @@
+{% extends 'seller_base_temp.html' %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% block title %}
+        <title>Edit An AD</title>
+    {% endblock title %}
+    {% load static %}
+
+</head>
+
+
+<body>
+{% block pagewisecontent %}
+
+    <div style="margin-top: 4%; margin-bottom: 4%" class="row">
+        <div class="col-xl-8 m-auto order-xl-1">
+            <div style="background-color: transparent" class="card shadow ">
+                <div style="background-color: #149b89" class="card-header  border-0">
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <h3 style="color: white" class="mb-0">Update Ad</h3>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="card-body">
+                    {% include 'message.html' %}
+                    <form method="post" action="" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input type="hidden" name="userid" value="{{ request.session.obj_id }}">
+                        <h6 class="heading-small text-muted mb-4">Products information</h6>
+                        <div class="pl-lg-4">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group focused">
+                                        <label class="form-control-label" for="input-name">Title</label>
+                                        <input type="text" id="input-name" class="form-control form-control-alternative"
+                                               name="ad_title" value="{{ ad.ad_title }}"
+                                               placeholder="Enter Product Name"
+                                               required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group focused">
+                                        <label class="form-control-label" for="input-name">phone</label>
+                                        <input type="text" id="input-name" class="form-control form-control-alternative"
+                                               name="ad_phone" value="{{ ad.ad_phone }}"
+                                               placeholder="Enter phone Number"
+                                               required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-name">Category</label>
+                                        <select required type="" id="input-name"
+                                                class="form-control form-control-alternative"
+                                                name="catid">
+                                            <option selected
+                                                    value="{{ ad.category_id }}">{{ ad.category.Cat_name }}</option>
+                                            {% for cat in categories %}
+                                                <option style="  color: black"
+                                                        value="{{ cat.id }}">{{ cat.Cat_name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group focused">
+                                        <label class="form-control-label" for="input-name">Sub Category</label>
+                                        <select required type="text" id="input-name"
+                                                class="form-control form-control-alternative" name="subcatid">
+                                            <option selected
+                                                    value="{{ ad.subcategory_id }}">{{ ad.subcategory.subcat_name }}</option>
+                                            {% for subcat in subcategories %}
+                                                <option style="  color: black"
+                                                        value="{{ subcat.id }}">{{ subcat.subcat_name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-name">Product Price</label>
+                                        <input type="text" id="input-name" class="form-control form-control-alternative"
+                                               name="ad_price" value="{{ ad.ad_price }}"
+                                               placeholder="Enter Product Price"
+                                               required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-name">Condition</label>
+                                        <select type="" id="input-name" class="form-control form-control-alternative"
+                                                name="ad_condition">
+                                            <option selected
+                                                    value="{{ ad.ad_condition }}">{{ ad.ad_condition }}</option>
+                                            <option style="  color: black" value="new">NEW</option>
+                                            <option style="  color: black" value="used">USED</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    {% if ad.ad_image %}
+                                        <img style="width: 50px;height: 50px" src="{{ ad.ad_image.url }}">
+                                    {% endif %}
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="exampleFormControlFile1">Image</label>
+                                        <input accept=".png, .jpg, .jpeg" type="file" id="input-name"
+                                               name="image" >
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 mt-lg-5">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-name">Location</label>
+                                        <select type="" id="input-name" class="form-control form-control-alternative"
+                                                name="ad_location">
+                                            <option selected
+                                                    value="{{ ad.ad_location }}">{{ ad.ad_location }}</option>
+                                            <option style="  color: black" value="gujrat">GUJRAT</option>
+                                            <option style="  color: black" value="lahore">LAHORE</option>
+                                            <option style="  color: black" value="islamabad">ISLAMABAD</option>
+                                            <option style="  color: black" value="multan">MULTAN</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="form-control-label"
+                                               for="exampleFormControlFile1">Description</label>
+                                        <TEXTAREA type="text" id="input-name" rows="4"
+                                                  class="form-control form-control-alternative"
+                                                  name="ad_description"
+                                                  required>{{ ad.ad_description }} </TEXTAREA>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group focused">
+                                        <BUTTON style="background-color: #149b89; color: white"
+                                                class="form-control form-control-alternative">POST
+                                        </BUTTON>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock pagewisecontent %}
+</body>
+{% block javascript %}
+    <script>
+        window.setTimeout(function () {
+            $(".alert").fadeTo(500, 0).slideUp(500, function () {
+                $(this).remove();
+            });
+        }, 2000);
+    </script>
+{% endblock javascript %}
+</html>

@@ -1,0 +1,75 @@
+{% extends 'adminpanel.html' %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% block title %}
+        <title>Old Products</title>
+    {% endblock title %}
+    {% load static %}
+
+</head>
+
+
+
+{% block pagewisecontent %}
+
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">Old/Used Products</h1>
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-dark">List of Products</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered font-weight-bold text-dark" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>Products Name</th>
+                            <th>Seller Name</th>
+                            <th>Seller Number</th>
+                            <th>Seller Location</th>
+                            <th>Price</th>
+                            <th>Condition</th>
+                            <th>Image</th>
+                            <th>Products Category</th>
+                            <th>Products Subcategory</th>
+                            <th>Delete</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if old %}
+                            {% for o in old %}
+                                <tr>
+                                    <td>{{ o.ad_title }}</td>
+                                    <td>{{ o.user.fullname}}</td>
+                                    <td>{{ o.ad_phone }}</td>
+                                    <td>{{ o.ad_location }}</td>
+                                    <td>{{ o.ad_price }}</td>
+                                    <td>{{ o.ad_condition }}</td>
+                                    <td><img style="width: 50px;height: 50px" src="{{ o.ad_image.url }}"></td>
+                                    <td>{{ o.category.Cat_name }}</td>
+                                    <td>{{ o.subcategory.subcat_name }}</td>
+                                    <td>
+                                          <a href="{% url 'del_old_pro' o.id %}"><i class=" fa fa-trash"></i></a>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+
+
+{% endblock pagewisecontent %}
+
+
+</html>

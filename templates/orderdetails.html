@@ -1,0 +1,81 @@
+{% extends 'vendor_base_templ.html' %}
+{% load cart %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}
+        <title>Order Detail</title>
+    {% endblock title %}
+</head>
+<body>
+{% block pagewisecontent %}
+    <div class="container-fluid my-5 d-flex justify-content-center">
+        <div class="card card-1">
+            <div class="card-header bg-white">
+                <div class="media flex-sm-row flex-column-reverse justify-content-between ">
+                    <div class="col my-auto">
+                        <h4 class="mb-0"> {{ order.order.customer.fullname }} Order</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <form method="post" action="">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col">
+                            <div class="card card-2">
+                                <div class="card-body">
+                                    <div class="media">
+                                        <div class="media-body my-auto text-right">
+                                            <div class="row my-auto flex-column flex-md-row">
+                                                <div class="col my-auto">
+                                                    <h6 class="mb-0">{{ order.product.product_name }}</h6>
+                                                </div>
+                                                <div class="col-auto my-auto"><small>{{ order.order.Order_id }} </small>
+                                                </div>
+                                                <div class="col my-auto"><small>{{ order.qunatity }}</small></div>
+                                                <div class="col my-auto">
+                                                    <h6 class="mb-0">{{ order.price|currency }}</h6>
+                                                </div>
+                                                <div class="col my-auto">
+                                                    <h6 class="mb-0">
+                                                        <select name="status">
+                                                            <option class="disabled">---Chose---</option>
+                                                            <option >Order Confirmed</option>
+                                                            <option >completed</option>
+                                                            <option >pending</option>
+                                                            <option >cancelled</option>
+                                                        </select></h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col">
+                            <div class="row justify-content-between">
+                                <div class="flex-sm-col text-right col">
+                                    <p class="mb-1"><b>Total</b></p>
+                                </div>
+                                <div class="flex-sm-col col-auto">
+                                    <p class="mb-1">{{ order.order.total_price|currency }}</p>
+                                </div>
+                                <div class="flex-sm-col col-auto">
+                                    <button class="btn btn-block" type="submit">Update Status</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock pagewisecontent %}
+
+</body>
+</html>

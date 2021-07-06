@@ -1,0 +1,161 @@
+{% extends 'seller_base_temp.html' %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% block title %}
+        <title>Post An AD</title>
+    {% endblock title %}
+    {% load static %}
+
+</head>
+
+
+<body>
+{% block pagewisecontent %}
+
+    <div style="margin-top: 4%; margin-bottom: 4%" class="row">
+        <div class="col-xl-8 m-auto order-xl-1">
+            <div style="background-color: transparent" class="card shadow ">
+                <div style="background-color: #149b89" class="card-header  border-0">
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <h3 style="color: white" class="mb-0">Post An Ad</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    {% include 'message.html' %}
+                    <form id="indexForm" method="post" action="" enctype="multipart/form-data"
+                          data-cat-url="{% url 'ajax_load_cat' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="userid" value="{{ request.session.obj_id }}">
+                        <h6 class="heading-small text-muted mb-4">Products information</h6>
+                        <div class="pl-lg-4">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group focused">
+                                        <label class="form-control-label" for="input-name">Title</label>
+                                        {{ form.ad_title }}
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group focused">
+                                        <label class="form-control-label" for="input-name">Phone</label>
+                                        {{ form.ad_phone }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-name">Category</label>
+                                        <select required type="" id="catid"
+                                                class="form-control form-control-alternative"
+                                                name="catid">
+                                            <option selected DISABLED value="#">Chose Category</option>
+                                            {% for cat in categories %}
+                                                <option style="  color: black"
+                                                        value="{{ cat.id }}">{{ cat.Cat_name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group focused">
+                                        <label class="form-control-label" for="input-name">Sub Category</label>
+                                        <select required type="text" id="subcatid"
+                                                class="form-control form-control-alternative" name="subcatid">
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-name">Product Price</label>
+                                        {{ form.ad_price }}
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="Condition">Condition </label>
+                                        {{ form.ad_condition }}
+                                        <strong class="text-danger"></strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="exampleFormControlFile1">Image</label>
+                                        {{ form.ad_image }}
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="exampleFormControlFile1">Location</label>
+                                        {{ form.ad_location }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="form-control-label"
+                                               for="exampleFormControlFile1">Description</label>
+                                        {{ form.ad_description }}
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group focused">
+                                        <BUTTON style="background-color: #149b89; color: white"
+                                                class="form-control form-control-alternative">POST
+                                        </BUTTON>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock pagewisecontent %}
+</body>
+{% block javascript %}
+    <script>
+        window.setTimeout(function () {
+            $(".alert").fadeTo(500, 0).slideUp(500, function () {
+                $(this).remove();
+            });
+        }, 2000);
+    </script>
+
+    <script>
+        $("#catid").change(function () {
+            var url = $("#indexForm").attr("data-cat-url");
+            var catId = $(this).val();
+            $.ajax({
+                url: url,
+                data: {
+                    'catid': catId
+                },
+                success: function (data) {
+                    $("#subcatid").html(data);
+                }
+            });
+        });
+    </script>
+{% endblock javascript %}
+</html>

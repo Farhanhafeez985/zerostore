@@ -1,0 +1,85 @@
+{% extends 'adminpanel.html' %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% block title %}
+        <title>New Products</title>
+    {% endblock title %}
+    {% load static %}
+
+</head>
+
+
+
+{% block pagewisecontent %}
+
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">New Products</h1>
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-dark">List of Products</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered font-weight-bold text-dark" id="dataTable" width="100%"
+                           cellspacing="0">
+                        <thead>
+                        <tr>
+
+                            <th>iD</th>
+                            <th>Products Name</th>
+                            <th>Products description</th>
+                            <th>Products image</th>
+                            <th>Products price</th>
+                            <th>Products Status</th>
+                            <th>Products Category</th>
+                            <th>Products SubCategory</th>
+                            <th>Vendor Name</th>
+                            <th>Store Name</th>
+                            <th>NTN</th>
+                            <th>Delete</th>
+
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for p in products %}
+                            <tr>
+                            <td>{{ p.id }}</td>
+                            <td>{{ p.product_name }}</td>
+                            <td>{{ p.product_description }}</td>
+                            <td><img style="height: 80px;width: 80px" src='{{ p.product_image.url }}'></td>
+                            <td>{{ p.product_price }}</td>
+                            <td>{{ p.product_status }}</td>
+                            <td>{{ p.category.Cat_name }}</td>
+                            <td>{{ p.subcategory.subcat_name }}</td>
+                            <td>{{ p.store.user.fullname }}</td>
+                            <td>{{ p.store.store_Name }}</td>
+                            <td>{{ p.store.ntn }}</td>
+                            <td>
+                                <form action="" method="post">
+                                    {% csrf_token %}
+                                    <a href="{% url 'del_new_pro' p.id %}" style="background-color:transparent; border-color: transparent; margin-right: 20px"
+                                            ><i class=" fa fa-trash black"></i></a>
+                                </form>
+                            </td>
+                        {% endfor %}
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+
+
+{% endblock pagewisecontent %}
+
+
+</html>

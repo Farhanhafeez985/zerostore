@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load cart %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}
+        <title>Check-out</title>
+    {% endblock title %}
+</head>
+<body>
+{% block body %}
+    <!-- Shopping Cart Section Begin -->
+    <section class="checkout-section spad">
+        <div class="container">
+            {% include 'message.html' %}
+            <form action="#" method="post" class="checkout-form">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="checkout-content">
+
+                        </div>
+                        <h4>Biiling Details</h4>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <label for="fir">Fill Name<span>*</span></label>
+                                <input required type="text" id="fir" value="{{ request.session.fullname }}">
+                            </div>
+
+                            <div class="col-lg-12">
+                                <label for="cun">City<span>*</span></label>
+                                <input required name="city" type="text" id="cun">
+                            </div>
+                            <div class="col-lg-12">
+                                <label for="street">Street Address<span>*</span></label>
+                                <input required name="address" type="text" id="street" class="street-first">
+                            </div>
+                            <div class="col-lg-12">
+                                <label for="zip">Postcode / ZIP (optional)</label>
+                                <input required name="postcode" type="text" id="zip">
+                            </div>
+                            <div class="col-lg-6">
+                                <label for="email">Email Address<span>*</span></label>
+                                <input required type="email" id="email" value="{{ request.session.email }}">
+                            </div>
+                            <div class="col-lg-6">
+                                <label for="phone">Phone<span>*</span></label>
+                                <input  required name="phone" type="text" id="phone">
+                            </div>
+                            <input type="hidden" name="total" value="{{ products|total_cart_price:request.session.cart }}">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="checkout-content">
+                        </div>
+                        <div class="place-order">
+                            <h4>Your Order</h4>
+                            <div class="order-total">
+                                <ul class="order-table">
+                                    <li>Product <span>Total</span></li>
+                                    {% if check_products %}
+                                        {% for prod in check_products %}
+                                            <li class="fw-normal">{{ prod.product_name }}
+                                                x {{ prod|quantity:request.session.cart }}
+                                                <span>{{ prod.product_price|currency }}</span></li>
+                                        {% endfor %}
+                                    {% endif %}
+                                    <li class="total-price">Total
+                                        <span>{{ products|total_cart_price:request.session.cart|currency }}</span></li>
+
+                                </ul>
+                                <div class="order-btn">
+                                    <button type="submit" class="site-btn place-btn">Place Order</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+    <!-- Shopping Cart Section End -->
+
+{% endblock body %}
+</body>
+{% block javascript %}
+    <script>
+        window.setTimeout(function () {
+            $(".alert").fadeTo(500, 0).slideUp(500, function () {
+                $(this).remove();
+            });
+        }, 2000);
+    </script>
+{% endblock javascript %}
+</html>

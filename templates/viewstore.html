@@ -1,0 +1,59 @@
+{% extends 'vendorpanel.html' %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% block title %}
+        <title>Store Info </title>
+    {% endblock title %}
+    {% load static %}
+
+</head>
+
+
+
+{% block pagewisecontent %}
+    {% include 'message.html' %}
+    <div class="page-content page-container" id="page-content">
+    <div class="padding">
+        {% for dt in data %}
+            <div class="row container d-flex justify-content-center">
+                <div class="col-lg-6 col-xlg-4">
+                    <div class="card shadow-lg">
+                        <div class="card-body little-profile text-center">
+                            <div class="pro-img m-t-20"><img src="{{ dt.store_image.url }}" alt="user"></div>
+                            <h3 class="m-b-0">{{ dt.store_Name }}</h3>
+                            <h6 class="text-muted">{{ dt.ntn }}</h6>
+                        </div>
+                        <div class="text-center bg-light">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 p-20 b-r">
+                                    <h4 class="m-b-0 font-medium">Name</h4><small>{{ dt.user.fullname }}</small>
+                                </div>
+                                <div class="col-lg-6 col-md-6 p-20">
+                                    <h4 class="m-b-0 font-medium">Email</h4><small>{{ dt.user.email }}</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body text-center">
+                            <a class="m-t-10 m-b-20 waves-effect waves-dark btn btn-md btn-rounded"
+                               data-abc="true" href="{% url 'updatestore' dt.id %}">
+                                Update
+                            </a>
+                            <a class="m-t-10 m-b-20 waves-effect waves-dark btn btn-md btn-rounded "
+                               data-abc="true" href="{% url 'deletestore' dt.id %}">
+                                Delete
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+
+
+{% endblock pagewisecontent %}
+
+
+</html>

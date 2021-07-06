@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load cart %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}
+        <title>wished List</title>
+    {% endblock %}
+
+</head>
+<body>
+{% block body %}
+    <!-- Shopping Cart Section Begin -->
+    <section class="shopping-cart spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="cart-table">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th class="p-name">Product Name</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th>Delete</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% if wp %}
+                                {% for prod in wp %}
+                                    <tr>
+                                        <td class="cart-pic first-row"><img style="width: 180px;height: 180px"
+                                                                            src="{{ prod.product_image.url }}" alt="">
+                                        </td>
+                                        <td class="cart-title first-row">
+                                            <h5>{{ prod.product_name }}</h5>
+                                        </td>
+                                        <td class="cart-title first-row">
+                                            <h5 style="padding-left: 150px">{{ prod.category.Cat_name }}</h5>
+                                        </td>
+                                        <td class="p-price first-row">{{ prod.product_price }}</td>
+                                        <td class="close-td first-row"><a href="{% url 'delete_wish_pro' prod.id %}"><i
+                                                class="ti-close"></i></a></td>
+                                    </tr>
+                                {% endfor %}
+                            {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Shopping Cart Section End -->
+{% endblock body %}
+</body>
+</html>

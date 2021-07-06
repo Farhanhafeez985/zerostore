@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    {% block title %}
+        <title>Login</title>
+    {% endblock title %}
+</head>
+
+<body>
+{% block body %}
+    <div class="row">
+        <div class="col-lg-3">
+        </div>
+        <div class="col-lg-6 pt-2">
+            <ul class="nav nav-tabs nav-justified mt-2 " id="myTab" role="tablist">
+                <li style="background-color: white;" class="nav-item ">
+                    <a style="color: Black" class="nav-link active btn-outline-light" id="home-tab" data-toggle="tab"
+                       href="#home"
+                       role="tab"
+                       aria-controls="home"
+                       aria-selected="true">Login As Vendors</a>
+                </li>
+                <li style="background-color: white;" class="nav-item ">
+                    <a style="color: Black" class="nav-link btn-outline-light" id="profile-tab" data-toggle="tab"
+                       href="#profile"
+                       role="tab"
+                       aria-controls="profile"
+                       aria-selected="false">Login As Customer</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-lg-3">
+
+        </div>
+    </div>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <!-- Register Section Begin -->
+            <div class="register-login-section spad">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6 offset-lg-3">
+                            <div class="register-form">
+                                {% include 'message.html' %}
+                                <h2>Login As vendor/seller</h2>
+                                <form id="form_id" enctype="multipart/form-data" action="" method="POST">
+                                    {% csrf_token %}
+                                    <div class="group-input">
+                                        <label for="email">Email</label>
+                                        {{ form.email }}
+                                        <strong class="text-danger">{{ form.email.errors }}</strong>
+                                    </div>
+                                    <div class="group-input">
+                                        <label for="password">Password</label>
+                                        {{ form.password }}<input
+                                            style="width:auto;height: 50px;float:right ;position: relative"
+                                            type="checkbox"  onclick="myFunction()"/>
+                                        <strong class="text-danger">{{ form.password.errors }}</strong>
+                                    </div>
+                                    <button type="submit" name="form1" class="site-btn register-btn">Login</button>
+                                </form>
+                                <div class="switch-login">
+                                    <a href="/signup" class="or-login">Or Signup</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Register Form Section End -->
+        </div>
+        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+            <!-- Register Section Begin -->
+            <div class="register-login-section spad">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6 offset-lg-3">
+                            <div class="register-form">
+                                {% include 'message.html' %}
+                                <h2>Login As Customer</h2>
+                                <form id="form_id" enctype="multipart/form-data" action="" method="POST">
+                                    {% csrf_token %}
+                                    <div class="group-input">
+                                        <label for="email">Email</label>
+                                        {{ form2.email }}
+                                        <strong class="text-danger">{{ form.email.errors }}</strong>
+                                    </div>
+                                    <div class="group-input">
+                                        <label for="password">Password</label>
+                                        {{ form2.password }}<input
+                                            style="width:auto;height: 50px;float:right ;position: relative"
+                                            type="checkbox"  onclick="myFunction2()"/>
+                                        <strong class="text-danger">{{ form.password.errors }}</strong>
+                                    </div>
+                                    <button type="submit" name="form2" class="site-btn register-btn">Login</button>
+                                </form>
+                                <div class="switch-login">
+                                    <a href="/signup" class="or-login">Or Signup</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Register Form Section End -->
+        </div>
+
+    </div>
+
+
+{% endblock body %}
+
+
+</body>
+{% block javascript %}
+    <script>
+        window.setTimeout(function () {
+            $(".alert").fadeTo(500, 0).slideUp(500, function () {
+                $(this).remove();
+            });
+        }, 2000);
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
+                localStorage.setItem('activeTab', $(e.target).attr('href'));
+            });
+            var activeTab = localStorage.getItem('activeTab');
+            if (activeTab) {
+                $('#myTab a[href="' + activeTab + '"]').tab('show');
+            }
+        });
+    </script>
+
+     <script>
+        function myFunction() {
+            var x = document.getElementById("id_password");
+            if (x.type === "password") {
+                x.type = "text";
+            } else {
+                x.type = "password";
+            }
+        }
+    </script>
+     <script>
+        function myFunction2() {
+            var x = document.getElementById("id_pass");
+            if (x.type === "password") {
+                x.type = "text";
+            } else {
+                x.type = "password";
+            }
+        }
+    </script>
+{% endblock javascript %}
+</html>

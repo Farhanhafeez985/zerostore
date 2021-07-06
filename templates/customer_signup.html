@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}
+        <title>Registration</title>
+    {% endblock title %}
+</head>
+<body>
+{% block body %}
+    <!-- customer Register Section Begin -->
+    <div class="register-login-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3">
+                    <div class="register-form">
+                        <h2>Create an Account As Customer</h2>
+                        <p class="alert alert-dismissible fade show" role="alert" id="error">
+                        </p>
+                        <form id="form_id" action="#" method="POST">
+                            {% csrf_token %}
+                            <div class="group-input">
+                                <label for="fullname">Full Name </label>
+                                {{ form.fullname }}
+                                <strong class="text-danger">{{ form.fullname.errors }}</strong>
+                            </div>
+                            <div class="group-input">
+                                <label for="phone-number">Phone Number</label>
+                                {{ form.phone }}
+                                <strong class="text-danger">{{ form.phone.errors }}</strong>
+                            </div>
+                            <div class="group-input">
+                                <label for="email">email address</label>
+                                {{ form.email }}
+                                <strong class="text-danger">{{ form.email.errors }}</strong>
+                            </div>
+
+                            <div class="group-input">
+                                <label for="password">Password</label>
+                                {{ form.password }}
+                                <strong class="text-danger">{{ form.password.errors }}</strong>
+                            </div>
+                            <input type="hidden" value="customer" name="type" id="type">
+                            <button type="submit" class="site-btn register-btn">REGISTER
+                            </button>
+
+                        </form>
+                        <div class="switch-login">
+                            <a href="{% url 'customer_login' %}" class="or-login">Or Login as Customer</a>
+                        </div>
+                        <div class="switch-login">
+                            <a href="{% url 'login' %}" class="or-login">Or Login as Vendors</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Register Form Section End -->
+
+{% endblock body %}
+</body>
+
+{% block javascript %}
+
+{% endblock javascript %}
+</html>

@@ -1,0 +1,66 @@
+{% extends 'customer_base.html' %}
+{% load static %}
+{% load cart %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}
+        <title>Profile</title>
+    {% endblock title %}
+</head>
+<body>
+{% block pagewisecontent %}
+
+    <div class="container">
+        <div class="border rounded p-4 m-4">
+            <p class="display-4 pl-4 ml-4">Your Orders</p>
+            <hr>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Sno.</th>
+                    <th>Order ID.</th>
+                    <th>Image</th>
+                    <th>Product</th>
+                    <th>Date</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for order in orders %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ order.order.Order_id }}</td>
+                        <td><img style="height: 80px;" src="{{ order.product.product_image.url }}" alt=""></td>
+                        <td>{{ order.product.product_name }}</td>
+                        <td>{{ order.order.date }}</td>
+                        <td>{{ order.price|currency }}</td>
+                        <td>{{ order.qunatity }}</td>
+                        <td>{{ order.qunatity|multiply:order.price|currency }}</td>
+                        {% if order.status  == 'completed' %}
+                            <td><small class="badge badge-success">{{ order.status }}</small></td>
+                        {% elif order.status == 'cancelled' %}
+                             <td><small class="badge badge-danger">{{ order.status }}</small></td>
+                         {% elif order.status == 'Order Confirmed' %}
+                             <td><small class="badge badge-primary">{{ order.status }}</small></td>
+                        {% else %}
+                            <td><small class="badge badge-warning">{{ order.status }}</small></td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+
+
+
+{% endblock pagewisecontent %}
+</body>
+</html>

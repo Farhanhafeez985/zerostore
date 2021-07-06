@@ -1,0 +1,35 @@
+<div class="col-lg-3">
+    <div class="filter-widget">
+        <span></span>
+        <h4 class="fw-title">Categories</h4>
+        <ul class="filter-catagories">
+            {% if categories %}
+                {% for cat in categories %}
+                    <li><a href="/category_search?cat={{ cat.id }}">{{ cat.Cat_name }}</a></li>
+                {% endfor %}
+            {% endif %}
+        </ul>
+    </div>
+    <div class="filter-widget">
+        <h4 class="fw-title">Stores</h4>
+        <div class="fw-brand-check">
+            {% if stores %}
+                {% for store in  stores %}
+                    <div class="bc-item">
+                        <a style="color: #636363" href="/storeprod?store={{ store.id }} ">{{ store.store_Name }} </a>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+
+
+    <div class="filter-widget">
+        <h4 class="fw-title">Tags</h4>
+        <div class="fw-tags">
+            {% for subcat in subcategories %}
+            <a href="/Sub_category_search?subcat={{ subcat.id }}">{{ subcat.subcat_name}}</a>
+            {% endfor %}
+        </div>
+    </div>
+</div>

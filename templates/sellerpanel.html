@@ -1,0 +1,95 @@
+{% extends 'seller_base_temp.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}
+        <title>Dashboard</title>
+    {% endblock title %}
+</head>
+<body>
+{% block pagewisecontent %}
+
+    <div class="  d-sm-flex align-items-center justify-content-between mb-4 container">
+        <h1 class="h3 mb-0 text-gray-800">Cards</h1>
+    </div>
+
+    <div class="row container">
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                Total Ads
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ count }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fab fa-product-hunt fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+    <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">Charts</h1>
+        <!-- Content Row -->
+        <div class="row ">
+            <div class="col-md-6 my-4">
+                <div class="bg-white">
+                    <div class="card-body">
+                        <canvas id="myChart" width="400" height="300"></canvas>
+                        <script>
+                            var ctx = document.getElementById('myChart').getContext('2d');
+                            var myChart = new Chart(ctx, {
+                                type: 'doughnut',
+                                data: {
+                                    labels: [{% for ad in ads %} '{{ad.ad_title}}',{% endfor %}],
+                                    datasets: [{
+                                        label: 'Orders',
+                                        data: [{% for ad in ads %} {{ ad.ad_price }}, {% endfor %}],
+                                        backgroundColor: [
+                                            'rgba(255, 99, 132, 1)',
+                                            'rgba(54, 162, 235, 1)',
+                                            'rgba(255, 206, 86, 1)',
+                                            'rgba(75, 192, 192, 1)',
+                                            'rgba(153, 102, 255, 1)',
+                                            'rgba(255, 159, 64, 1)'
+                                        ],
+                                        borderColor: [
+                                            'rgba(255, 99, 132, 1)',
+                                            'rgba(54, 162, 235, 1)',
+                                            'rgba(255, 206, 86, 1)',
+                                            'rgba(75, 192, 192, 1)',
+                                            'rgba(153, 102, 255, 1)',
+                                            'rgba(255, 159, 64, 1)'
+                                        ],
+                                        borderWidth: 1
+                                    }]
+                                },
+                                options: {
+                                    scales: {
+                                        yAxes: [{
+                                            ticks: {
+                                                beginAtZero: true
+                                            }
+                                        }]
+                                    }
+                                }
+                            });
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock pagewisecontent %}
+
+</body>
+</html>

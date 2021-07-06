@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% load cart %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}
+        <title>Shopping Cart</title>
+    {% endblock %}
+
+</head>
+<body>
+{% block body %}
+    <!-- Shopping Cart Section Begin -->
+    <section class="shopping-cart spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="cart-table">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th class="p-name">Product Name</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                            </tr>
+                            </thead>
+
+
+                            <tbody>
+                            {% if products %}
+                                {% for prod in products %}
+                                    <tr>
+                                        <td class="cart-pic first-row"><img style="width: 180px;height: 180px"
+                                                                            src="{{ prod.product_image.url }}" alt="">
+                                        </td>
+                                        <td class="cart-title first-row">
+                                            <h5>{{ prod.product_name }}</h5>
+                                        </td>
+                                        <td class="p-price first-row">{{ prod.product_price|currency }}</td>
+                                        <td class="qua-col first-row">
+                                            <div class="">
+                                                <div class="">
+                                                    {% if prod|in_cart:request.session.cart %}
+                                                        <div class="row nu-gutterss" style="width: 180px">
+                                                            <form method="post" class="col-2" action="/#{{ prod.id }}">
+                                                                {% csrf_token %}
+                                                                <input type="hidden" name="product"
+                                                                       value="{{ prod.id }}">
+                                                                <input hidden type="text" name="remove" value="True">
+                                                                <input style="color: black;background-color: white; border: white"
+                                                                       type="submit"
+                                                                       value="-"
+                                                                       class="">
+                                                            </form>
+                                                            <div class="text-center col pt-1 text-dark">{{ prod|quantity:request.session.cart }}
+                                                                in cart
+                                                            </div>
+                                                            <form method="post" action="/#{{ prod.id }}" class="col-2">
+                                                                {% csrf_token %}
+                                                                <input type="hidden" name="product"
+                                                                       value="{{ prod.id }}">
+                                                                <input style="color: black;background-color: white; border: white"
+                                                                       type="submit"
+                                                                       value="+"
+                                                                       class=""
+                                                                >
+                                                            </form>
+                                                        </div>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="total-price first-row">{{ prod|total:request.session.cart|currency }}</td>
+                                    </tr>
+                                {% endfor %}
+                            {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="cart-buttons">
+                                <a href="{% url 'new_products_shop' %}" class="primary-btn continue-shop">Continue shopping</a>
+
+                            </div>
+
+                        </div>
+                        <div class="col-lg-4 offset-lg-4">
+                            <div class="proceed-checkout">
+                                <ul>
+                                    <li class="cart-total">Total
+                                        <span>{{ products|total_cart_price:request.session.cart|currency }}</span></li>
+                                </ul>
+                                <a href="{% url 'checkout' %}" class="proceed-btn">PROCEED TO CHECK OUT</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Shopping Cart Section End -->
+{% endblock body %}
+</body>
+</html>

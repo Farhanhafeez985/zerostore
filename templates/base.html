@@ -1,0 +1,302 @@
+{% load static %}
+{% load cart %}
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Fashi Template">
+    <meta name="keywords" content="Fashi, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% block title %}
+        <title></title>
+    {% endblock title %}
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+            integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+            crossorigin="anonymous"></script>
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css ' %}">
+    <link rel="stylesheet" href="{% static 'css/themify-icons.css ' %}">
+    <link rel="stylesheet" href="{% static 'css/elegant-icons.css ' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css ' %}">
+    <link rel="stylesheet" href="{% static 'css/nice-select.css ' %}">
+    <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css ' %}">
+    <link rel="stylesheet" href="{% static 'css/slicknav.min.css ' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css ' %}">
+
+
+</head>
+
+
+<body>
+
+<div id="preloder">
+    <div class="loader"></div>
+</div>
+
+
+<!-- Header Section Begin -->
+<header class="header-section">
+    <div class="header-top ">
+        <div class="container">
+            <div class="ht-left">
+                <div class="mail-service">
+                    <i class=" fa fa-envelope"></i>
+                    zerostore619@gmail.com
+                </div>
+                <div class="phone-service">
+                    <i class=" fa fa-phone"></i>
+                    053-353535
+                </div>
+            </div>
+            <div class="ht-right ">
+                {% if request.session.obj_id and request.session.type == 'vendor' %}
+                    <a href="#" class="login-panel" data-toggle="modal" data-target="#exampleModal"><i
+                            class="fa fa-sign-out" aria-hidden="true"></i>Logout</a>
+                    <a style="margin-right: 20px" href="{% url 'vendorpanel' %}" class="login-panel"><i
+                            class="fa fa-user"></i>Vendor Profile</a>
+                {% elif request.session.obj_id and request.session.type == 'seller' %}
+                    <a href="" class="login-panel" data-toggle="modal" data-target="#exampleModal"><i
+                            class="fa fa-sign-out" aria-hidden="true"></i>Logout</a>
+                    <a style="margin-right: 20px" href="{% url 'sellerpanel' %}" class="login-panel"><i
+                            class="fa fa-user"></i>Seller
+                        Profile</a>
+                {% elif request.session.obj_id and request.session.type == 'customer' %}
+                    <a href="" class="login-panel" data-toggle="modal" data-target="#exampleModal"><i
+                            class="fa fa-sign-out" aria-hidden="true"></i>Logout</a>
+                    <a style="margin-right: 20px" href="{% url 'customerpanel' %}" class="login-panel"><i
+                            class="fa fa-user"></i>Customer
+                        Profile</a>
+                {% else %}
+                    <a style="margin-right: 20px" href="{% url 'login' %}" class="login-panel"><i
+                            class="fa fa-user"></i>
+                        Login</a>
+                    <a style="margin-right: 20px" href="{% url 'signup' %}" class="login-panel"><i
+                            class="fa fa-user"></i>
+                        Signup</a>
+
+                {% endif %}
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                     aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Logout</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                Are you sure you want to logout...!
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <a style="background-color: #149b89;color: white" href="{% url 'logout' %}"
+                                   class="btn btn-default">Logout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="top-social">
+                    <a href="#"><i class="ti-facebook"></i></a>
+                    <a href="#"><i class="ti-twitter-alt"></i></a>
+                    <a href="#"><i class="ti-linkedin"></i></a>
+                    <a href="#"><i class="ti-pinterest"></i></a>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="container">
+        <div class="inner-header">
+            <div class="row">
+                <div class="col-lg-2 col-md-2">
+                    <div class="logo">
+                        <a href="/">
+                            <img style="height: 30px" src="{% static 'img/ostore2.png' %}">
+                        </a>
+                    </div>
+                </div>
+                <div style="max-width: 50.333333%; " class="col-lg-7 col-md-7 mt-2 ml-5 ">
+                    <div class="input-group">
+                        <form method="get" action="{% url 'search' %}" class="input-group">
+                            <input name="keyword" type="search" class="form-control rounded" placeholder="Search"
+                                   aria-label="Search"
+                                   aria-describedby="search-addon"/>
+                            <button style="background-color: #149b89; color: white" type="submit" class="btn">search
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 text-right col-md-3">
+                    <ul class="nav-right">
+                        <li class="heart-icon">
+                            <a href="{% url 'wished_product' %}">
+                                <i class="icon_heart_alt"></i>
+                                <span>{{ count }}</span>
+                            </a>
+
+                        </li>
+                        <li class="cart-icon">
+                            <a href="#">
+                                <i class="icon_bag_alt"></i>
+                                <span>{{ request.session.cart.keys|length }}</span>
+                            </a>
+                            <div class="cart-hover">
+                                <div class="select-items">
+                                    <table>
+                                        <tbody>
+                                        {% if cartpro %}
+                                            {% for prod in cartpro %}
+                                                <tr>
+                                                    <td class="si-pic"><img style="width: 50px;height: 50px"
+                                                                            src="{{ prod.product_image.url }}"
+                                                                            alt=""></td>
+                                                    <td class="si-text">
+                                                        <div class="product-selected">
+                                                            <p>{{ prod.product_price|currency }}
+                                                                x {{ prod|quantity:request.session.cart }}</p>
+                                                            <h6>{{ prod.product_name }}</h6>
+                                                        </div>
+                                                    </td>
+                                                    <td class="si-close">
+                                                        <i class="ti-close"></i>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                        {% endif %}
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="select-total">
+                                    <span>total:</span>
+                                    <h5>{{ products|total_cart_price:request.session.cart|currency }}</h5>
+                                </div>
+                                <div class="select-button">
+                                    <a href="{% url 'cart' %}" class="primary-btn view-card">VIEW CART</a>
+                                    <a href="{% url 'checkout' %}" class="primary-btn checkout-btn">CHECK OUT</a>
+                                </div>
+                            </div>
+                        </li>
+                        {% if cartpro %}
+                            <li class="cart-price">{{ products|total_cart_price:request.session.cart|currency }}</li>
+                        {% endif %}
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="nav-item">
+        <div class="container">
+            <div class="nav-depart">
+                <div class="depart-btn">
+                    <i class="ti-menu"></i>
+                    <span>All Categories</span>
+                    <ul class="depart-hover">
+                        {% if categories %}
+                            {% for cat in categories %}
+                                <li class="active"><a href="/category_search?cat={{ cat.id }}">{{ cat.Cat_name }}</a>
+                                </li>
+                            {% endfor %}
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+            <nav class="nav-menu mobile-menu">
+                <ul>
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="#">Shop</a>
+                        <ul class="dropdown">
+                            <li><a href="{% url 'new_products_shop' %}">New Products</a></li>
+                            <li><a href="{% url 'old_products_shop' %}">Old Products</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="{% url 'cart' %}">Shopping Cart</a></li>
+                    <li><a href="{% url 'checkout' %}">Checkout</a></li>
+                </ul>
+            </nav>
+            <div id="mobile-menu-wrap"></div>
+        </div>
+    </div>
+</header>
+<!-- Header End -->
+
+{% block body %}
+
+
+
+{% endblock body %}
+
+
+
+<!-- Footer Section Begin -->
+<footer class="footer-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="footer-left">
+                    <div class="footer-logo">
+                        <img style="height: 40px" src="{% static 'img/footerlogo.png' %}">
+                    </div>
+                    <ul>
+                        <li>Phone: 053-353535</li>
+                        <li>zerostore619@gmail.com</li>
+                    </ul>
+                    <div class="footer-social">
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"><i class="fa fa-instagram"></i></a>
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                        <a href="#"><i class="fa fa-pinterest"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 offset-lg-1">
+                <div class="footer-widget">
+                    <h5>Information</h5>
+                    <ul>
+
+
+                        <li><a href="{% url 'new_products_shop' %}">New Products Shop</a></li>
+                        <li><a href="{% url 'old_products_shop' %}">Used Products Shop</a></li>
+                        <li><a href="{% url 'cart' %}">Shopping Cart</a></li>
+                        <li><a href="{% url 'checkout' %}">Checkout</a></li>
+
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</footer>
+<!-- Footer Section End -->
+
+
+<!-- Js Plugins -->
+<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/jquery-ui.min.js' %}"></script>
+<script src="{% static 'js/jquery.countdown.min.js' %}"></script>
+<script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
+<script src="{% static 'js/jquery.zoom.min.js' %}"></script>
+<script src="{% static 'js/jquery.dd.min.js' %}"></script>
+<script src="{% static 'js/jquery.slicknav.js' %}"></script>
+<script src="{% static 'js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+<script src="{% static 'js/message.js' %}"></script>
+
+</body>
+{% block javascript %}
+{% endblock javascript %}
+</html>

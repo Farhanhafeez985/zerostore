@@ -1,0 +1,97 @@
+{% extends 'seller_base_temp.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}
+        <title> Your Ads</title>
+    {% endblock title %}
+
+    {% block pagewisecss %}
+        <link href="{% static 'css/sellerprod.css' %}" rel="stylesheet">
+
+    {% endblock pagewisecss %}
+</head>
+<body>
+{% block pagewisecontent %}
+
+    <div class="wrapper">
+        <div class="container">
+            {% include 'message.html' %}
+
+            <div class="row g-1">
+                {% if data %}
+                    {% for dt in data %}
+                        <div class="col-md-4 mt-2">
+                            <div class="card p-3">
+                                <div class="text-center"><img style="height: 200px" src="{{ dt.ad_image.url }}"
+                                                              width="200" alt=""></div>
+                                <div class="product-details"><span
+                                        class="font-weight-bold d-block">Price :{{ dt.ad_price }}</span>
+                                    <span>Title :{{ dt.ad_title }}</span>
+                                    <div class="product-details">
+                                        <span>Condition :{{ dt.ad_condition }} </span>
+                                        <span class="font-weight-bold d-block"></span>
+                                        <span>Available In: {{ dt.ad_location }}</span>
+
+                                    </div>
+                                    <div class="buttons d-flex flex-row">
+                                        <div class="cart"><a href="{% url 'delete_ad' dt.id %}"><i
+                                                class="fa fa-trash"></i></a></div>
+                                        <a href="{% url 'edit_ad' dt.id %}"
+                                           class="btn btn-success cart-button btn-block">Edit
+                                            your ad
+                                        </a>
+                                    </div>
+                                    <div class="weight "><small style="color: #6c757d">Description
+                                        :{{ dt.ad_description }}</small></br>
+                                        <small style="color: #6c757d">Category
+                                            :{{ dt.category.Cat_name }}-{{ dt.subcategory.subcat_name }}</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+{% endblock pagewisecontent %}
+
+
+</body>
+{% block javascript %}
+
+    <script>
+        window.setTimeout(function () {
+            $(".alert").fadeTo(500, 0).slideUp(500, function () {
+                $(this).remove();
+            });
+        }, 2000);
+    </script>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function (event) {
+
+
+            const cartButtons = document.querySelectorAll('.cart-button');
+
+            cartButtons.forEach(button => {
+
+                button.addEventListener('click', cartClick);
+
+            });
+
+            function cartClick() {
+                let button = this;
+                button.classList.add('clicked');
+            }
+
+
+        });
+    </script>
+{% endblock javascript %}
+</html>

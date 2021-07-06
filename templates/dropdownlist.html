@@ -1,0 +1,4 @@
+<option value="">---select Subcategories---</option>
+{% for subcat in subcat %}
+<option value="{{ subcat.id }}">{{ subcat.subcat_name }}</option>
+{% endfor %}

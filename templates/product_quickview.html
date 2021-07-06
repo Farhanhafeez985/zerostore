@@ -1,0 +1,293 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load cart %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}
+        <title>Quick View</title>
+    {% endblock title %}
+    <link rel="stylesheet" href="{% static 'css/rating.css ' %}">
+</head>
+<body>
+{% block body %}
+    <!-- Product Shop Section Begin -->
+    <section class="product-shop spad page-details">
+        <div class="container">
+            <div class="row">
+                {% include 'quicksidebar.html' %}
+                <div class="col-lg-9">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="product-pic-zoom">
+                                <img class="product-big-img" src="{{ product.product_image.url }}" alt="">
+                                <div class="zoom-icon">
+                                    <i class="fa fa-search-plus"></i>
+                                </div>
+                            </div>
+                            <div class="product-thumbs">
+                                <div class="product-thumbs-track ps-slider owl-carousel">
+                                    <div class="pt active" data-imgbigurl="img/product-single/product-1.jpg"><img
+                                            src="{{ product.product_image.url }}" alt=""></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            {% if product %}
+                                <div class="product-details">
+                                    <div class="pd-title">
+                                        <span>{{ product.store.store_Name }}</span>
+                                        <h3>{{ product.product_name }}</h3>
+
+                                    </div>
+                                    <div class="pd-rating">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <span>(5)</span>
+                                    </div>
+                                    <div class="pd-desc">
+                                        <p>{{ product.product_description }}</p>
+                                        <h4>{{ product.product_price|currency }}
+                                            <span>{{ product.discount_price|currency }}</span></h4>
+                                    </div>
+                                    <div class="card row border-0 " style="background-color:transparent; width: 200px">
+                                        {% if product|in_cart:request.session.cart %}
+                                            <div class="row  nu-gutterss p-1">
+                                                <form method="post" class="col-2" action="/">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="product" value="{{ product.id }}">
+                                                    <input hidden type="text" name="remove" value="True">
+                                                    <input style="color: black;background-color: white; border: white"
+                                                           type="submit"
+                                                           value="-"
+                                                           class="">
+                                                </form>
+                                                <div class="text-center col pt-1 text-dark">{{ product|quantity:request.session.cart }}
+                                                    in cart
+                                                </div>
+                                                <form method="post" action="/" class="col-2">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="product" value="{{ product.id }}">
+                                                    <input style="color: black;background-color: white; border: white"
+                                                           type="submit"
+                                                           value="+"
+                                                           class="">
+                                                </form>
+                                            </div>
+                                        {% else %}
+                                            <form method="post" action="/">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="product" value="{{ product.id }}">
+                                                <center>
+                                                    <button class="bt float-left mb-3" type="submit"
+                                                            style="background-color: #149b89;color: white;border-color: #149b89">
+                                                        Add to Cart
+                                                    </button>
+                                                </center>
+                                            </form>
+                                        {% endif %}
+                                    </div>
+                                    <ul class="pd-tags">
+                                        <li>
+                                            <span>CATEGORIES</span>: {{ product.category.Cat_name }}-{{ product.subcategory.subcat_name }}
+                                        </li>
+                                    </ul>
+                                    <div class="pd-share">
+                                        <div class="pd-social">
+                                            <a href="#"><i class="ti-facebook"></i></a>
+                                            <a href="#"><i class="ti-twitter-alt"></i></a>
+                                            <a href="#"><i class="ti-linkedin"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="product-tab">
+                        <div class="tab-item">
+                            <ul class="nav" role="tablist">
+                                <li>
+                                    <a class="active" data-toggle="tab" href="#tab-1" role="tab">DESCRIPTION</a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#tab-2" role="tab">SPECIFICATIONS</a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#tab-3" role="tab">Customer Reviews ({{ length }})</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tab-item-content">
+                            <div class="tab-content">
+                                <div class="tab-pane fade-in active" id="tab-1" role="tabpanel">
+                                    <div class="product-content">
+                                        <div class="row">
+                                            <div class="col-lg-7">
+                                                <h5>Introduction</h5>
+                                                <p> {{ product.product_description }}</p>
+                                                <h5>Features</h5>
+                                                <p>{{ product.product_description }} </p>
+                                            </div>
+                                            <div class="col-lg-5">
+                                                <img src="{{ product.product_image.url }}" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="tab-2" role="tabpanel">
+                                    <div class="specification-table">
+                                        <table>
+                                            <tr>
+                                                <td class="p-catagory">Customer Rating</td>
+                                                <td>
+                                                    <div class="pd-rating">
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star-o"></i>
+                                                        <span>(5)</span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="p-catagory">Price</td>
+                                                <td>
+                                                    <div class="p-price">{{ product.product_price|currency }}</div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="p-catagory">Availability</td>
+                                                <td>
+                                                    <div class="p-stock">{{ product.product_quantity }} in stock</div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="tab-3" role="tabpanel">
+                                    <div class="customer-review-option">
+                                        <h4>{{ length }} Comments</h4>
+                                        {% for c in comment %}
+                                            <div class="comment-option">
+                                                <div class="co-item">
+                                                    <div class="avatar-pic">
+                                                        <img style="width: 63px;height: 63px"
+                                                             src="{{ c.user.image.url }}" alt="">
+                                                    </div>
+                                                    <div class="avatar-text">
+                                                        <div class="at-rating">
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star-o"></i>
+                                                        </div>
+                                                        <h5>{{ c.user.fullname }} <span>{{ c.create_at }}</span></h5>
+                                                        {% if request.session.obj_id %}
+                                                            {% if request.session.obj_id ==  c.user_id %}
+                                                                <a style="color: #149b89" class="float-right mb-lg-4"
+                                                                   href="{% url 'delete_comment' c.id %}"><i
+                                                                        style="color: black"
+                                                                        class="fa fa-trash"></i></a>
+                                                            {% endif %}
+                                                        {% endif %}
+                                                        <div class="at-reply">{{ c.comment }}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                        <div class="leave-comment">
+                                            <h4>Leave A Comment</h4>
+                                            <form action="{% url 'comment' product.id %}" class="comment-form"
+                                                  method="post">
+                                                {% csrf_token %}
+                                                <div class="row">
+                                                    <div class="col-lg-6">
+                                                        <input type="text" placeholder="Name"
+                                                               value="{{ request.session.fullname }}">
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <input type="text" placeholder="Email"
+                                                               value="{{ request.session.email }}">
+                                                    </div>
+                                                    <div class="col-lg-12">
+                                                        <textarea name="message" placeholder="Messages"></textarea>
+                                                        {% if request.session.obj_id  and request.session.type == 'customer' %}
+                                                            <button type="submit" class="site-btn">POST</button>
+                                                        {% else %}
+                                                            <p>Please Login First <a href="{% url 'login' %}">Login</a>
+                                                            </p>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Product Shop Section End -->
+
+    <!-- Related Products Section End -->
+    <div class="related-products spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title">
+                        <h2>Related Products</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                {% if related_products %}
+                    {% for rp in related_products %}
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="product-item">
+                                <div class="pi-pic">
+                                    <img style="height: 300px" src="{{ rp.product_image.url }}" alt="">
+                                    {% if pr.product_quantity >= 1 %}
+                                        <div class="sale">Available</div>
+                                    {% else %}
+                                        <div class="sale">Out of Stock</div>
+                                    {% endif %}
+                                    {% if request.session.type == 'customer' %}
+                                            <a style="color:#149b89" href="{% url 'wish_list' pr.id %}"
+                                               class="icon_heart_alt "></a>
+                                        {% endif %}
+                                    <ul>
+                                        <li class="quick-view"><a href="{% url 'quick_view' rp.id %}">+ Quick View</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="pi-text">
+                                    <div class="catagory-name">{{ rp.category.Cat_name }}</div>
+                                    <a href="#">
+                                        <h5>{{ rp.product_name }}</h5>
+                                    </a>
+                                    <div class="product-price">
+                                        {{ rp.product_price|currency }}
+                                        <span>{{ rp.discount_price|currency }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <!-- Related Products Section End -->
+
+{% endblock body %}
+</body>
+</html>

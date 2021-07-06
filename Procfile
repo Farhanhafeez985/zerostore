@@ -1,0 +1,1 @@
+web: gunicorn FYP_Ostore.wsgi --log-file -

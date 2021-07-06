@@ -1,0 +1,67 @@
+{% extends 'vendorpanel.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}
+        <title>Total Products</title>
+    {% endblock title %}
+
+</head>
+<body>
+{% block pagewisecontent %}
+    <div class="row text-center text-black-50 mb-5">
+        <div class="col-lg mx-auto">
+            <h4 class="">Store Products</h4>
+        </div>
+    </div>
+
+    {% include 'message.html' %}
+
+    <div class="container mb-1">
+        <div class="row">
+            {% for object in obj %}
+                <div class="col-lg-6 mt-1">
+                    <!-- List group-->
+                    <ul class="list-group shadow">
+                        <!-- list group item-->
+                        <li class="list-group-item">
+                            <!-- Custom content-->
+                            <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+                                <div class="media-body order-2 order-lg-1">
+                                    <h4 class="mt-0 font-weight-bold mb-2">Name
+                                        :&nbsp;{{ object.product_name }} </h4>
+                                    <h5 class="mt-0 font-weight-bold mb-2 small">Description
+                                        :&nbsp;{{ object.product_description }}</h5>
+                                    <p class=" font-weight-bold mb-0 small">Category
+                                        :&nbsp;{{ object.category.Cat_name }}</p>
+                                    <p class=" font-weight-bold mb-0 small">Sub Category
+                                        :&nbsp;{{ object.subcategory.subcat_name }}</p>
+                                     <p class=" font-weight-bold mb-0 small">Quantity
+                                        :&nbsp;{{ object.product_quantity }}</p>
+                                    <div class="d-flex align-items-center justify-content-between mt-1">
+                                        <h6 class="font-weight-bold small my-2">Price
+                                            :&nbsp;{{ object.product_price }}</h6>
+                                    </div>
+                                </div>
+                                <img style="width:120px;height:130px " src="{{ object.product_image.url }}"
+                                     alt="Generic placeholder image"
+                                     width="200"
+                                     class="ml-lg-5 order-1 order-lg-2">
+                            </div> <!-- End -->
+                            <div class="container">
+                                <a href="{% url 'update_products' object.id %}"><i style="color: gray" class="fas fa-edit"></i></a>
+                                <a href="{% url 'delete_products' object.id %}"><i style="margin-left: 5px;color: gray" class="fas fa-trash"></i></a>
+                            </div>
+                        </li> <!-- End -->
+                    </ul> <!-- End -->
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+{% endblock %}
+</body>
+</html>

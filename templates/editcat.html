@@ -1,0 +1,71 @@
+{% extends 'adminpanel.html' %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% block title %}
+        <title>Categories</title>
+    {% endblock title %}
+    {% load static %}
+
+</head>
+<body>
+{% block pagewisecontent %}
+
+
+    <div class="container">
+
+        {% include 'message.html' %}
+        <div style="margin-top: 7%" class="row">
+            <div class="col-xl-8 m-auto order-xl-1">
+                <div style="background-color: transparent" class="card shadow ">
+                    <div style="background-color: #149b89" class="card-header  border-0">
+                        <div class="row align-items-center">
+                            <div class="col-6">
+                                <h3 style="color: white" class="mb-0">Edit Category</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="pl-lg-5 ">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <form method="post" action="">
+                                        {% csrf_token %}
+                                        <div class="form-group focused">
+                                            <label class="form-control-label" for="input-name">Category Name</label>
+                                            <input type="text" id="input-name"
+                                                   class="form-control form-control-alternative"
+                                                   name="catname"  placeholder="Enter Category" value="{{ data.Cat_name }}">
+                                        </div>
+                                        <div style="margin-left: 170px" class=" col-md-5 ">
+                                        <div class="form-group focused ">
+                                            <button style="background-color:#149b89; color: white"
+                                                    class="form-control form-control-alternative"> update
+                                            </button>
+                                        </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+{% endblock pagewisecontent %}
+</body>
+{% block javascript %}
+    <script>
+        window.setTimeout(function () {
+            $(".alert").fadeTo(500, 0).slideUp(500, function () {
+                $(this).remove();
+            });
+        }, 2000);
+    </script>
+{% endblock javascript %}
+</html>

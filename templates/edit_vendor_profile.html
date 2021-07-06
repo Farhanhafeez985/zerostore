@@ -1,0 +1,164 @@
+{% extends 'vendor_base_templ.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}
+        <title>Profile</title>
+    {% endblock title %}
+</head>
+<body>
+{% block pagewisecontent %}
+    <div style="margin-top: 4%; margin-bottom: 4%" class="row">
+        <div class="col-xl-8 m-auto order-xl-1">
+            <div style="background-color: transparent" class="card shadow ">
+                <div style="background-color: #149b89" class="card-header  border-0">
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <h3 style="color: white" class="mb-0">Profile</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    {% include 'message.html' %}
+                    <div class="form-row">
+                        <div class="col-md-4">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="input-group mb-3 ml-4">
+                                <div class="input-group-prepend">
+                                    {% if data.image %}
+                                        <img style="width:150px;height: 150px; " src="{{ data.image.url }}" alt="">
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <form enctype="multipart/form-data" action="" method="post" id="login" autocomplete="off"
+                          class="bg-light border p-3">
+                        {% csrf_token %}
+                        <div class="form-row">
+                            <h4 class="title my-3">Update profile</h4>
+                            <div class="col-12">
+                                <div class="input-group mb-3">
+                                    <input  required name="fullname" type="text" value="{{ data.fullname }}"
+                                           class="input form-control" id="username"
+                                           placeholder="Username" aria-label="Username"
+                                           aria-describedby="basic-addon1"/>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group mb-3">
+                                    <input name="email" type="email" value="{{ data.email }}"
+                                           class="input form-control" id="username"
+                                           placeholder="example@.com" aria-label="email"
+                                           aria-describedby="basic-addon1" required >
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="input-group mb-3">
+                                    <input  name="password1" type="password" value="{{ data.password }}"
+                                           class="input form-control"
+                                           id="password"
+                                           placeholder="password" required="true" aria-label="password"
+                                           aria-describedby="basic-addon1"/>
+                                    <div class="input-group-append">
+                                    <span class="input-group-text" onclick="password_show_hide();">
+                                        <i class="fas fa-eye" id="show_eye"></i>
+                                        <i class="fas fa-eye-slash d-none" id="hide_eye"></i>
+                                    </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="input-group mb-3">
+                                    <input name="password2" type="password" value="{{ data.confirm_password }}"
+                                           class="input form-control"
+                                           id="password2"
+                                           placeholder="password" required="true" aria-label="password"
+                                           aria-describedby="basic-addon1"/>
+                                    <div class="input-group-append">
+                                    <span class="input-group-text" onclick="password_show_hide2()">
+                                        <i class="fas fa-eye" id="show"></i>
+                                        <i class="fas fa-eye-slash d-none" id="hide"></i>
+                                    </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="exampleFormControlFile1">Image</label>
+                                        <input name="image" type="file" class="form-control-file "
+                                               id="exampleFormControlFile1">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <button class="btn btn-primary col-lg-12" type="submit" name="signin">Update</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock pagewisecontent %}
+
+</body>
+{% block javascript %}
+    <script>
+        function password_show_hide() {
+            var x = document.getElementById("password");
+            var show_eye = document.getElementById("show_eye");
+            var hide_eye = document.getElementById("hide_eye");
+            hide_eye.classList.remove("d-none");
+            if (x.type === "password") {
+                x.type = "text";
+                show_eye.style.display = "none";
+                hide_eye.style.display = "block";
+            } else {
+                x.type = "password";
+                show_eye.style.display = "block";
+                hide_eye.style.display = "none";
+            }
+        }
+
+        function password_show_hide2() {
+            var x = document.getElementById("password2");
+            var show = document.getElementById("show");
+            var hide = document.getElementById("hide");
+            hide.classList.remove("d-none");
+            if (x.type === "password") {
+                x.type = "text";
+                show.style.display = "none";
+                hide.style.display = "block";
+            } else {
+                x.type = "password";
+                show.style.display = "block";
+                hide.style.display = "none";
+            }
+        }
+
+        window.setTimeout(function () {
+            $(".alert").fadeTo(500, 0).slideUp(500, function () {
+                $(this).remove();
+            });
+        }, 2000);
+
+    </script>
+
+{% endblock javascript %}
+</html>

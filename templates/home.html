@@ -1,0 +1,239 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}
+        <title>OStore</title>
+    {% endblock title %}
+</head>
+<body>
+{% block body %}
+    {% load cart %}
+
+
+
+    <!-- Hero Section Begin -->
+    <section class="hero-section">
+        <div class="hero-items owl-carousel">
+            <div class="single-hero-items set-bg " style="height: 500px; width: auto;"
+                 data-setbg="{% static 'img/hero-1.jpg' %}">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <span>Bag,kids</span>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="single-hero-items set-bg" style="height: 500px; width: auto;"
+                 data-setbg="{% static 'img/hero-2.jpg' %}">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <span>Bag,kids</span>
+
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                incididunt </p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Hero Section End -->
+
+
+    <!-- Women Banner Section Begin -->
+    <section class="women-banner spad mt-5">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-3">
+
+                    <div class="product-large set-bg" data-setbg="{% static 'img/products/women-large.jpg' %}">
+                        <h2>New Products</h2>
+                        <a href="{% url 'new_products_shop' %}">Discover More</a>
+                    </div>
+                </div>
+                <div class="col-lg-8 offset-lg-1">
+                    <div class="filter-control">
+                        <ul>
+                            <li class="active">All New Products</li>
+                        </ul>
+                    </div>
+                    <div class="product-slider owl-carousel">
+                        {% for pr in products %}
+                            <div class=" product-item mr-2" id={{ pr.id }}>
+                                <div class="pi-pic">
+                                    <img style="height: 300px" src="{{ pr.product_image.url }}" alt="">
+                                    {% if pr.product_quantity >= 1 %}
+                                        <div class="sale">Available</div>
+                                    {% else %}
+                                        <div class="sale">Out Of Stock</div>
+                                    {% endif %}
+                                    <div class="icon">
+                                        {% if request.session.type == 'customer' %}
+                                            <a style="color:#149b89" href="{% url 'wish_list' pr.id %}"
+                                               class="icon_heart_alt "></a>
+                                        {% endif %}
+                                    </div>
+                                    <ul>
+                                        <li class="quick-view"><a href="{% url 'quick_view' pr.id %}">+ Quick View</a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                                <div class="pi-text">
+                                    <div class="catagory-name">{{ pr.category.Cat_name }}</div>
+                                    <a href="#">
+                                        <h5>{{ pr.product_name }}</h5>
+                                    </a>
+                                    <div class="product-price">
+                                        {{ pr.product_price|currency }}
+                                        <span>{{ pr.discount_price|currency }}</span>
+                                    </div>
+                                </div>
+                                <div class="card-footer  row nu-gutters p-1" style="background-color: #149b89;">
+
+
+                                    {% if pr|in_cart:request.session.cart %}
+                                        <div class="row nu-gutterss">
+                                            <form method="post" class="col-2" action="/">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="product" value="{{ pr.id }}">
+                                                <input hidden type="text" name="remove" value="True">
+                                                <input style="color: white;background-color: #149b89" type="submit"
+                                                       value="-"
+                                                       class="col-2 btn btn-block">
+                                            </form>
+                                            <div class="text-center col pt-1 text-light">{{ pr|quantity:request.session.cart }}
+                                                in cart
+                                            </div>
+                                            <form method="post" action="/" class="col-2">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="product" value="{{ pr.id }}">
+                                                <input style="color: white;background-color: #149b89" type="submit"
+                                                       value="+"
+                                                       class="col-2 btn btn-block">
+                                            </form>
+                                        </div>
+                                    {% else %}
+                                        <form method="post" action="/">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="product" value="{{ pr.id }}">
+                                            <center>
+                                                <button class="btn btn-block" type="submit"
+                                                        style="background-color: #149b89"><i
+                                                        style="color: white" class="icon_bag_alt"></i></button>
+                                            </center>
+                                        </form>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Women Banner Section End -->
+
+<div class="container-fluid"> <hr> </div>
+    <!-- Man Banner Section Begin -->
+    <section class="man-banner spad">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="filter-control">
+                        <ul>
+                            <li class="active">All Used Products</li>
+
+                        </ul>
+                    </div>
+                    <div class="product-slider owl-carousel">
+                        {% for pr in old %}
+                            <div class="product-item">
+                                <div class="pi-pic">
+                                    <img style="height: 300px" src="{{ pr.ad_image.url }}" alt="">
+                                    <div class="sale">{{ pr.ad_location }}</div>
+
+                                    <ul>
+                                        <li class="quick-view"><a href="{% url 'used_quickview' pr.id %}">+ Quick
+                                            View</a></li>
+                                    </ul>
+                                </div>
+                                <div class="pi-text">
+                                    <div class="catagory-name">{{ pr.category.Cat_name }}</div>
+                                    <a href="#">
+                                        <h5>{{ pr.ad_title }}</h5>
+                                    </a>
+                                    <div class="product-price">
+                                        {{ pr.ad_price|currency }}
+
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-lg-3 offset-lg-1">
+                    <div class="product-large set-bg m-large" data-setbg="{% static 'img/products/man-large.jpg' %}">
+                        <h2>Used Products</h2>
+                        <a href="{% url 'old_products_shop' %}">Discover More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Man Banner Section End -->
+
+
+
+
+
+    <!-- Partner Logo Section Begin -->
+    <div class="partner-logo">
+        <div class="container">
+            <div class="logo-carousel owl-carousel">
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="{% static 'img/logo-carousel/logo-1.png' %}" alt="">
+                    </div>
+                </div>
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="{% static 'img/logo-carousel/logo-2.png' %}" alt="">
+                    </div>
+                </div>
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="{% static 'img/logo-carousel/logo-3.png' %}" alt="">
+                    </div>
+                </div>
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="{% static 'img/logo-carousel/logo-4.png' %}" alt="">
+                    </div>
+                </div>
+                <div class="logo-item">
+                    <div class="tablecell-inner">
+                        <img src="{% static 'img/logo-carousel/logo-5.png' %}" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Partner Logo Section End -->
+
+{% endblock body %}
+</body>
+</html>
