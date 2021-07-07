@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     'Seller',
     'Customer',
     'Order',
-    'active_link',
 ]
 
 MIDDLEWARE = [
@@ -56,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'FYP_Ostore.urls'
@@ -130,17 +130,18 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Extra places for collectstatic to find static files.
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 MEDIA_ROOT = 'C:\\Users\Farhan\\PycharmProjects\\FYP_Ostore\\media'
 
 MEDIA_URL = 'media/'
-STATICFILES_DIRS = [
-
-    os.path.join(BASE_DIR, 'static'),
-
-]
 # SESSION_COOKIE_AGE = 20
 
 MESSAGE_TAGS = {
@@ -148,3 +149,4 @@ MESSAGE_TAGS = {
 
 }
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
