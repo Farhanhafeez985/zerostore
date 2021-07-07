@@ -35,7 +35,7 @@ class home(View):
         return redirect(url)
 
     def get(self, request):
-        return render(request, 'home.html')
+        return render(request, 'home.html',{"home": "active"})
 
 
 def new_prod_quick_view(request, id):

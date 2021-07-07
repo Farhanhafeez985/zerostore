@@ -17,8 +17,8 @@ class VendorSignupForm(forms.ModelForm):
 
     fullname = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Enter your Full Name'}), required=True)
     email = forms.EmailField(widget=forms.EmailInput(attrs={'placeholder': 'Enter your Email'}), required=True)
-    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Enter Password'}), required=True)
-    confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Retype Password'}),
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Type Alphanumeric password'}), required=True)
+    confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Retype Alphanumeric password password'}),
                                        required=True)
     image = forms.ImageField(label='Select a file', required=True),
     user_type = forms.ChoiceField(required=True, choices=choice, widget=forms.Select(
@@ -69,10 +69,10 @@ class VendorSignupForm(forms.ModelForm):
 class CustomerSignupForm(forms.ModelForm):
     fullname = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Enter your Full Name'}), required=True)
     email = forms.EmailField(widget=forms.EmailInput(attrs={'placeholder': 'Enter your Email'}), required=True)
-    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Enter Password', 'id': 'id_pass'}),
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Type Alphanumeric password', 'id': 'id_pass'}),
                                required=True, min_length=8, max_length=20)
     confirm_password = forms.CharField(
-        widget=forms.PasswordInput(attrs={'placeholder': 'Retype Password', 'id': 'id_con_pass'}), min_length=8,
+        widget=forms.PasswordInput(attrs={'placeholder': 'Retype Alphanumeric password', 'id': 'id_con_pass'}), min_length=8,
         max_length=20,
         required=True)
     phone = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Enter you phone Number'}), required=True)

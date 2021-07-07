@@ -46,7 +46,7 @@
                             </div>
                             <div class="col-lg-6">
                                 <label for="phone">Phone<span>*</span></label>
-                                <input  required name="phone" type="text" id="phone">
+                                <input  required name="phone" type="tel" id="phone">
                             </div>
                             <input type="hidden" name="total" value="{{ products|total_cart_price:request.session.cart }}">
                         </div>

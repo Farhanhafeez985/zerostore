@@ -60,7 +60,9 @@
 
                     <div class="product-large set-bg" data-setbg="{% static 'img/products/women-large.jpg' %}">
                         <h2>New Products</h2>
-                        <a href="{% url 'new_products_shop' %}">Discover More</a>
+                        {% with url_name=request.resolver_match.url_name %}
+                        <a class="{% if url_name == 'new_products_shop'  %}active {% endif %}" href="{% url 'new_products_shop' %}">Discover More</a>
+                        {% endwith %}
                     </div>
                 </div>
                 <div class="col-lg-8 offset-lg-1">
@@ -88,7 +90,6 @@
                                     <ul>
                                         <li class="quick-view"><a href="{% url 'quick_view' pr.id %}">+ Quick View</a>
                                         </li>
-
                                     </ul>
                                 </div>
                                 <div class="pi-text">
@@ -102,8 +103,6 @@
                                     </div>
                                 </div>
                                 <div class="card-footer  row nu-gutters p-1" style="background-color: #149b89;">
-
-
                                     {% if pr|in_cart:request.session.cart %}
                                         <div class="row nu-gutterss">
                                             <form method="post" class="col-2" action="/">
@@ -188,7 +187,9 @@
                 <div class="col-lg-3 offset-lg-1">
                     <div class="product-large set-bg m-large" data-setbg="{% static 'img/products/man-large.jpg' %}">
                         <h2>Used Products</h2>
-                        <a href="{% url 'old_products_shop' %}">Discover More</a>
+                        {% with url_name=request.resolver_match.url_name %}
+                        <a class="{% if url_name == 'new_products_shop'  %}active {% endif %}" href="{% url 'old_products_shop' %}">Discover More</a>
+                        {% endwith %}
                     </div>
                 </div>
             </div>

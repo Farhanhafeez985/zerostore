@@ -30,7 +30,7 @@ def checkout(request):
             last_order = Order.objects.last()
             oid = last_order.id
             for product in products:
-                detail = Order_details(qunatity=cart.get(str(product.id)),
+                detail = Order_details(quantity= cart.get(str(product.id)),
                                        price=product.product_price,
                                        order_id=oid,
                                        product_id=product.id,

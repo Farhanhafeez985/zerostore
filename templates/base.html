@@ -1,5 +1,6 @@
 {% load static %}
 {% load cart %}
+{% load active_link_tags %}
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -175,7 +176,6 @@
                                                 </tr>
                                             {% endfor %}
                                         {% endif %}
-
                                         </tbody>
                                     </table>
                                 </div>
@@ -214,17 +214,19 @@
                     </ul>
                 </div>
             </div>
-            <nav class="nav-menu mobile-menu">
+            <nav class="nav-menu mobile-menu  ">
                 <ul>
-                    <li><a href="{% url 'home' %}">Home</a></li>
+                    {% with url_name=request.resolver_match.url_name %}
+                    <li class="{% if url_name == 'home'  %}active {% endif %}"><a href="{% url 'home' %}">Home</a></li>
                     <li><a href="#">Shop</a>
                         <ul class="dropdown">
-                            <li><a href="{% url 'new_products_shop' %}">New Products</a></li>
-                            <li><a href="{% url 'old_products_shop' %}">Old Products</a></li>
+                            <li class="{% if url_name == 'new_products_shop'  %}active {% endif %}"><a href="{% url 'new_products_shop' %}">New Products</a></li>
+                            <li class="{% if url_name == 'old_products_shop'  %}active {% endif %}"><a href="{% url 'old_products_shop' %}">Old Products</a></li>
                         </ul>
                     </li>
-                    <li><a href="{% url 'cart' %}">Shopping Cart</a></li>
-                    <li><a href="{% url 'checkout' %}">Checkout</a></li>
+                    <li class="{% if url_name == 'cart'  %}active {% endif %}"><a href="{% url 'cart' %}">Shopping Cart</a></li>
+                    <li class="{% if url_name == 'checkout'  %}active {% endif %}"><a href="{% url 'checkout' %}">Checkout</a></li>
+                {% endwith %}
                 </ul>
             </nav>
             <div id="mobile-menu-wrap"></div>

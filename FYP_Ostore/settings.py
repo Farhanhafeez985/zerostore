@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'Seller',
     'Customer',
     'Order',
+    'active_link',
 ]
 
 MIDDLEWARE = [
@@ -72,7 +73,6 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'Home.templatetags.template_context.get_filter',
-
 
             ],
         },
@@ -148,6 +148,3 @@ MESSAGE_TAGS = {
 
 }
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
-
-VALID_IMAGE_FILETYPES = ('gif', 'bmp', 'jpeg','png')
-

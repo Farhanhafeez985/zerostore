@@ -41,8 +41,8 @@
                                  src="{{ order.product.product_image.url }}" alt=""></td>
                         <td>{{ order.product.product_name }}</td>
                         <td>{{ order.price|currency }}</td>
-                        <td>{{ order.qunatity }}</td>
-                        <td>{{ order.qunatity|multiply:order.price|currency }}</td>
+                        <td>{{ order.quantity }}</td>
+                        <td>{{ order.quantity|multiply:order.price|currency }}</td>
                         {% if order.status  == 'completed' %}
                             <td><small class="badge badge-success">{{ order.status }}</small></td>
                         {% elif order.status == 'cancelled' %}
