@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-l^%lw#k(__t(3(4=1=#x0*$!5lso!34q+klck$i=!by^9r1i29
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['zerostore.herokuapp.com','127.0.0.1']
 
 # Application definition
 
@@ -139,7 +139,7 @@ STATICFILES_DIRS = (
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
-MEDIA_ROOT = 'C:\\Users\Farhan\\PycharmProjects\\FYP_Ostore\\media'
+MEDIA_ROOT  = os.path.join(BASE_DIR, 'media')
 
 MEDIA_URL = 'media/'
 # SESSION_COOKIE_AGE = 20
