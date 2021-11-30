@@ -1,0 +1,27 @@
+{
+  "background_color": "#ffffff",
+  "description": "Fashi Template",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "zerostore.herokuapp",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "zerostore.herokuapp",
+  "start_url": "/",
+  "theme_color": "#ffffff",
+    "icons": [
+    {
+      "src": "/static/icons8-shopping-96.png",
+      "type": "image/png",
+      "sizes": "96x96"
+
+    },
+      {
+        "src": "/static/maskable_icon_x512.png",
+        "type": "image/png",
+        "sizes": "512x512"
+
+
+    }]
+}
+

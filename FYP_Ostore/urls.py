@@ -28,4 +28,5 @@ urlpatterns = [
     path('sellerpanel/', include('Seller.urls')),
     path('Customer/',include('Customer.urls')),
     path('Order/',include('Order.urls')),
+    path('', include('pwa.urls'))
     ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

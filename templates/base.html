@@ -1,9 +1,13 @@
 {% load static %}
 {% load cart %}
+{% load pwa %}
 <!DOCTYPE html>
+
 <html lang="zxx">
 
 <head>
+    {% progressive_web_app_meta %}
+    <link rel="manifest" href="manifest.json">
     <meta charset="UTF-8">
     <meta name="description" content="Fashi Template">
     <meta name="keywords" content="Fashi, unica, creative, html">
